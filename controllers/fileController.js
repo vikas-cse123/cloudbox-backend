@@ -35,7 +35,6 @@ export const getFile = async (req, res) => {
       download: true,
       filename: fileData.name,
     });
-    console.log({fileUrl});
     return res.redirect(fileUrl);
   }
 
@@ -139,8 +138,7 @@ export const uploadInitiate = async (req, res) => {
 
 export const uploadComplete= async (req, res, next) => {
   const file = await File.findById(req.body.fileId);
-  console.log({file});
-  console.log({user:req.user});
+  
   if (!file) {
     return res.status(404).json({ error: "File not found in our records" });
   }
@@ -165,7 +163,7 @@ export const uploadComplete= async (req, res, next) => {
 
 
 
-// export const uploadComplete = async (req, res) => {
+
 //   const { fileId } = req.body;
 
 //   if (!fileId) {
