@@ -31,16 +31,16 @@ app.use("/webhooks", webhookRoutes);
 app.use("/", userRoutes);
 app.use("/auth", authRoutes);
 
-// app.use((err, req, res, next) => {
-//   console.log(err);
-//   // res.status(err.status || 500).json({ error: "Something went wrong!" });
-//   res.json(err);
-// });
+
+
+app.get("/",(req,res) => {
+  res.end("Hi")
+
+})
 
 
 app.use((err, req, res, next) => {
   console.log(err);
-  // res.status(err.status || 500).json({ error: "Something went wrong!" });
   res.json(err);
 });
 
@@ -48,4 +48,3 @@ app.listen(PORT, () => {
   console.log(`Server Started`);
 });
 
-// https://stackoverflow.com/questions/18367824/how-to-cancel-http-upload-from-data-events
