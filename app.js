@@ -39,6 +39,10 @@ app.get("/",(req,res) => {
 
 })
 
+app.get("/error",() =>{
+  console.log("process exit with error ");
+  process.exit(1)
+})
 
 app.use((err, req, res, next) => {
   console.log(err);
