@@ -35,7 +35,7 @@ app.use("/auth", authRoutes);
 
 
 app.get("/",(req,res) => {
-  res.end("Hi")
+  res.end(" Hell o")
 
 })
 
