@@ -35,7 +35,7 @@ app.use("/auth", authRoutes);
 
 
 app.get("/",(req,res) => {
-  res.end(" Hell o")
+  res.end(" Hello")
 
 })
 
@@ -46,7 +46,7 @@ app.get("/error",() =>{
 
 app.use((err, req, res, next) => {
   console.log(err);
-  res.json(err);
+  res.status(err.status||500).json({error:"Something went wrong!"})
 });
 
 app.listen(PORT, () => {

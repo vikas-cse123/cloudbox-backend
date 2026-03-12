@@ -115,8 +115,7 @@ export const deleteDirectory = async (req, res, next) => {
     }));
 
     console.log(keys);
-
-    const response = await deleteS3Files(keys);
+    if(keys.length) await deleteS3Files(keys);
 
     console.log(response);
 
