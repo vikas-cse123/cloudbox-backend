@@ -64,6 +64,8 @@ app.get("/error",() =>{
 
 
 app.post("/github-webhook",() => {
+  console.log(req.headers)
+  console.log(req.body);;
   const bashChildProcess = spawn("bash", ["/home/ubuntu/deploy-frontend.sh"]);
 
 bashChildProcess.stdout.on("data", (data) => {
