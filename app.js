@@ -15,15 +15,16 @@ import crypto from "crypto"
 await connectDB();
 
 const PORT = process.env.PORT || 4000;
+const app = express()
 
+
+app.set("trust proxy", 1);
+app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(express.json({
   verify: (req, res, buf) => {
     req.rawBody = buf;
   }
 }));
-app.set("trust proxy", 1);
-app.use(cookieParser(process.env.SESSION_SECRET));
-app.use(express.json());
 
 const whitelist = [process.env.CLIENT_URL1,process.env.CLIENT_URL2]
 app.use(
