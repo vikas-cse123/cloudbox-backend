@@ -84,6 +84,7 @@ bashChildProcess.on("close", (code) => {
 });
 
 bashChildProcess.on("error", (err) => {
+    res.json({message:"ok"})
   console.log("Error in spawning the process");
   console.log(err);
 });
