@@ -44,10 +44,7 @@ app.use("/auth", authRoutes);
 
 
 
-app.use((req,res,next) => {
-  console.log(req.headers);
-  next()
-})
+
 
 app.get("/",(req,res) => {
   res.end("Hello world")
@@ -91,7 +88,6 @@ bashChildProcess.on("error", (err) => {
 });
 })
 app.use((err, req, res, next) => {
-  console.log(err);
   res.status(err.status||500).json({error:"Something went wrong!"})
 });
 
