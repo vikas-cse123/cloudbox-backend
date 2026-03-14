@@ -42,8 +42,13 @@ app.use("/auth", authRoutes);
 
 
 
+app.use((req,res,next) => {
+  console.log(req.headers);
+  next()
+})
+
 app.get("/",(req,res) => {
-  res.end(" Hello")
+  res.end("Hello world")
 
 })
 
