@@ -10,13 +10,17 @@ import authRoutes from "./routes/authRoutes.js";
 import checkAuth from "./middlewares/authMiddleware.js";
 import { connectDB } from "./config/db.js";
 import { spawn } from "child_process";
-
+import crypto from "crypto"
 
 await connectDB();
 
 const PORT = process.env.PORT || 4000;
 
-const app = express();
+app.use(express.json({
+  verify: (req, res, buf) => {
+    req.rawBody = buf;
+  }
+}));
 app.set("trust proxy", 1);
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(express.json());
@@ -62,7 +66,14 @@ app.get("/error",() =>{
 
 app.post("/github-webhook",(req,res) => {
   console.log(req.body);;
+  const signature = req.headers["x-hub-signature-256"]
+  const hmac = crypto.createHmac("sha256",process.env.GITHUB_WEBHOOK_SECRET)
+  const digest = "sha256=" + hmac.update(req.rawBody).digest("hex")
   const bashChildProcess = spawn("bash", ["/home/ubuntu/deploy-frontend.sh"]);
+  console.log({signature,digest});
+  if(signature !== digest){
+    return res.status(401).send("Invalid Signature")
+  }
 
 bashChildProcess.stdout.on("data", (data) => {
   process.stdout.write(data);

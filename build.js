@@ -1,1 +1,2 @@
-console.log("buid complete");
+import crypto from "crypto"
+const hmac = crypto.createHmac("sha256","vikassahni")
