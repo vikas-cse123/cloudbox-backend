@@ -26,6 +26,10 @@ app.use(express.json({
   }
 }));
 
+app.use((req,res,next) => {
+  console.log(req.headers);
+  next()
+})
 const whitelist = [process.env.CLIENT_URL1,process.env.CLIENT_URL2]
 app.use(
   cors({
