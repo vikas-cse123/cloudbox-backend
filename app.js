@@ -52,6 +52,9 @@ app.get("/",(req,res) => {
 
 })
 
+app.get("/vikas",(req,res) => {
+  res.end("I am Vikas.")
+})
 app.get("/error",() =>{
   console.log("process exit with error ");
   process.exit(1)
