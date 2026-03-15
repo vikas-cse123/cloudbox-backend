@@ -66,7 +66,8 @@ app.get("/error",() =>{
 
 
 app.post("/github-webhook",(req,res) => {
-  console.log("github webhook started");
+  try {
+      console.log("github webhook started");
   const signature = req.headers["x-hub-signature-256"]
   console.log({signature});
   const hmac = crypto.createHmac("sha256",process.env.GITHUB_WEBHOOK_SECRET)
@@ -80,9 +81,7 @@ app.post("/github-webhook",(req,res) => {
   const script = req.body.repository.name === "cloudbox-frontend" ? "deploy-frontend.sh" : "deploy-backend.sh"
   console.log({script});
   const bashChildProcess = spawn("bash", [`/home/ubuntu/${script}`]);
-
-
-bashChildProcess.stdout.on("data", (data) => {
+  bashChildProcess.stdout.on("data", (data) => {
   process.stdout.write(data);
 });
 
@@ -103,6 +102,15 @@ bashChildProcess.on("error", (err) => {
   console.log("Error in spawning the process");
   console.log(err);
 });
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+
+
+
 })
 app.use((err, req, res, next) => {
   res.status(err.status||500).json({error:"Something went wrong!"})
