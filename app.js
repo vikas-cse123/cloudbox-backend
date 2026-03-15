@@ -52,7 +52,7 @@ app.use("/auth", authRoutes);
 
 
 app.get("/",(req,res) => {
-  res.end("vikas sahni")
+  res.end("vikas sahni 1")
 
 })
 
