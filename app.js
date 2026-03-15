@@ -66,7 +66,9 @@ app.get("/error",() =>{
 
 
 app.post("/github-webhook",(req,res) => {
+  console.log("github webhook started");
   const signature = req.headers["x-hub-signature-256"]
+  console.log({signature});
   const hmac = crypto.createHmac("sha256",process.env.GITHUB_WEBHOOK_SECRET)
   const digest = "sha256=" + hmac.update(req.rawBody).digest("hex")
   console.log({signature,digest});
@@ -75,7 +77,7 @@ app.post("/github-webhook",(req,res) => {
   }
   res.json({message:"ok"})
   console.log(req.body.repository.name);
-  const script = req.body.repository.name === "cloudboxa-frontend" ? "deploy-frontend.sh" : "deploy-backend.sh"
+  const script = req.body.repository.name === "cloudbox-frontend" ? "deploy-frontend.sh" : "deploy-backend.sh"
   const bashChildProcess = spawn("bash", [`/home/ubuntu/${script}`]);
 
 
