@@ -74,7 +74,9 @@ app.post("/github-webhook",(req,res) => {
     return res.status(401).send("Invalid Signature")
   }
   res.json({message:"ok"})
-  const bashChildProcess = spawn("bash", ["/home/ubuntu/deploy-frontend.sh"]);
+  console.log(req.body.repository.name);
+  const script = req.body.repository.name === "cloudboxa-frontend" ? "deploy-frontend.sh" : "deploy-backend.sh"
+  const bashChildProcess = spawn("bash", [`/home/ubuntu/${script}`]);
 
 
 bashChildProcess.stdout.on("data", (data) => {
