@@ -22,7 +22,7 @@ app.set("trust proxy", 1);
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(express.json())
 app.use((req,res,next) => {
-  console.log(req.headers);
+ 
   next()
 })
 const whitelist = [process.env.CLIENT_URL1,process.env.CLIENT_URL2]
@@ -66,7 +66,7 @@ app.get("/error",() =>{
 
 app.post("/github-webhook",(req,res) => {
   try {
-    console.log(req.body);
+    
       console.log("github webhook started");
   const signature = req.headers["x-hub-signature-256"]
   console.log({signature});
