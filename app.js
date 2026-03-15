@@ -78,6 +78,7 @@ app.post("/github-webhook",(req,res) => {
   res.json({message:"ok"})
   console.log(req.body.repository.name);
   const script = req.body.repository.name === "cloudbox-frontend" ? "deploy-frontend.sh" : "deploy-backend.sh"
+  console.log({script});
   const bashChildProcess = spawn("bash", [`/home/ubuntu/${script}`]);
 
 
