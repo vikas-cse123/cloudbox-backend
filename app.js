@@ -66,6 +66,7 @@ app.get("/error",() =>{
 
 app.post("/github-webhook",(req,res) => {
   try {
+    console.log(req.body);
       console.log("github webhook started");
   const signature = req.headers["x-hub-signature-256"]
   console.log({signature});
