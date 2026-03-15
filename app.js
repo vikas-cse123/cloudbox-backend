@@ -20,12 +20,7 @@ const app = express()
 
 app.set("trust proxy", 1);
 app.use(cookieParser(process.env.SESSION_SECRET));
-app.use(express.json({
-  verify: (req, res, buf) => {
-    req.rawBody = buf;
-  }
-}));
-
+app.use(express.json())
 app.use((req,res,next) => {
   console.log(req.headers);
   next()
@@ -75,7 +70,7 @@ app.post("/github-webhook",(req,res) => {
   const signature = req.headers["x-hub-signature-256"]
   console.log({signature});
   const hmac = crypto.createHmac("sha256",process.env.GITHUB_WEBHOOK_SECRET)
-  const digest = "sha256=" + hmac.update(req.rawBody).digest("hex")
+  const digest = "sha256=" + hmac.update(JSON.stringify(req.body)).digest("hex")
   console.log({signature,digest});
   if(signature !== digest){
     return res.status(401).send("Invalid Signature")
