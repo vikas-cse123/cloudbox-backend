@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -51,7 +52,7 @@ app.use("/auth", authRoutes);
 
 
 app.get("/",(req,res) => {
-  res.end("abcdefghijklmnopqrstuvwxyz1234567890.")
+  res.end("io_io_io_io_io_io_io_io")
 
 })
 
